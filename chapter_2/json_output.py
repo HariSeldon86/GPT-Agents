@@ -1,15 +1,21 @@
 from openai import OpenAI
 from dotenv import load_dotenv
+import os
 
 
 load_dotenv()  # loading and setting the api key can be done in one step
-client = OpenAI()
 
+api_key = os.getenv("OPENAI_API_KEY")
+base_url = os.getenv("OPENAI_API_BASE")
+model = os.getenv("MODEL")
+
+client = OpenAI(api_key=api_key,
+        base_url=base_url)
 
 # Example function to query ChatGPT
 def ask_chatgpt(messages):
-    response = client.chat.completions.create(
-        model="gpt-4-1106-preview",
+    response = client.chat.completions.create(       
+        model=model,
         messages=messages,
         temperature=0.7,   
         response_format={"type": "json_object"},     

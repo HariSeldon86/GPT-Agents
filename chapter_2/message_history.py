@@ -6,16 +6,18 @@ import json
 # Load API key from .env file
 load_dotenv()
 api_key = os.getenv('OPENAI_API_KEY')
+base_url = os.getenv("OPENAI_API_BASE")
+model = os.getenv("MODEL")
 # Ensure the API key is available
 if not api_key:
     raise ValueError("No API key found. Please check your .env file.")
-client = OpenAI(api_key=api_key)
+client = OpenAI(api_key=api_key, base_url=base_url)
 
 
 # Example function to query ChatGPT
 def ask_chatgpt(messages):
     response = client.chat.completions.create(
-        model="gpt-4-1106-preview",
+        model=model,
         messages=messages,
         temperature=0.7,        
         )     
